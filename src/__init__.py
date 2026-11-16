@@ -15,6 +15,7 @@ from .crossentropy import cross_entropy
 from .AdamOptimizer import Adam
 from .lr_cosine_schedule import lr_cosine_schedule
 from .gradient_clipping import gradient_clipping
+from .data import load_data, save_checkpoint, load_checkpoint
 
 __all__ = [
     "Linear",
@@ -33,4 +34,7 @@ __all__ = [
     "Adam",
     "lr_cosine_schedule",
     "gradient_clipping",
+    "load_data",
+    "save_checkpoint",
+    "load_checkpoint",
 ]

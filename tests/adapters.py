@@ -10,21 +10,24 @@ from jaxtyping import Bool, Float, Int
 from torch import Tensor
 from typing import cast
 
-from src.Linear import Linear
-from src.Embeddings import Embedding
-from src.SwiGLU import SwiGLU
-from src.rmsnorm import RMSNorm
-from src.rope import Rope
-from src.bpe import Tokenizer, train_bpe
-from src.softmax import softmax
-from src.attention import attention
-from src.multihead import MultiHeadAttention
-from src.transformer import Transformer_Block
-from src.transformer_lm import Transformer_LM
-from src.crossentropy import cross_entropy
-from src.AdamOptimizer import Adam
-from src.lr_cosine_schedule import lr_cosine_schedule
-from src.gradient_clipping import gradient_clipping
+from src import (
+    Linear,
+    Embedding,
+    SwiGLU,
+    RMSNorm,
+    Rope,
+    Tokenizer,
+    train_bpe,
+    softmax,
+    attention,
+    MultiHeadAttention,
+    Transformer_Block,
+    Transformer_LM,
+    cross_entropy,
+    Adam,
+    lr_cosine_schedule,
+    gradient_clipping,
+)
 
 
 def run_linear(

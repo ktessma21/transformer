@@ -2,5 +2,5 @@
 pytest
 tiktoken
 psutil
-numpy
-pytorch
+numpy<2
+torch==2.2.1

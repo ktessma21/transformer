@@ -23,7 +23,7 @@ def read_requirements(path):
 
 
 setup(
-    name="cs336_basics",
+    name="transformer",
     version=read("src", "VERSION"),
     description="CS336: basics",
     long_description=read("README.md"),

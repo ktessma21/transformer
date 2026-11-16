@@ -11,9 +11,9 @@ raise a GitHub issue or open a pull request with a fix.
 0. Set up a conda environment and install packages:
 
 ``` sh
-conda create -n cs336_basics python=3.10 --yes
-conda activate cs336_basics
-pip install -e .'[test]'
+uv venv --python 3.11 .venv
+source .venv/bin/activate
+uv pip install -e '.[test]'
 ```
 
 1. Run unit tests:

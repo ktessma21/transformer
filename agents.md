@@ -6,4 +6,4 @@
 
 
 How to run test cases:
-/home/wnv0414/.conda/envs/cs336_basics/bin/python -m pytest tests/...py 
+.venv/bin/python -m pytest tests/...py 

@@ -57,11 +57,11 @@ def load_data(
         targets.append(x[i + 1 : i + context_length + 1])
     
     inputs = torch.as_tensor(
-        np.stack(inputs), dtype=torch.long, device=device
+        np.stack(inputs).astype(np.int32), dtype=torch.int32, device=device
     )
 
     targets = torch.as_tensor(
-        np.stack(targets), dtype=torch.long, device=device
+        np.stack(targets).astype(np.int32), dtype=torch.int32, device=device
     )
 
     return (inputs, targets)

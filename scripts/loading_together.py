@@ -81,8 +81,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     return args
 
 
-def main():
-    args = parse_args()
+def main(argv: list[str] | None = None):
+    args = parse_args(argv)
     if (args.d_model // args.num_heads) % 2:
         raise ValueError("Each attention head needs an even dimension for RoPE.")
 

@@ -1,25 +1,31 @@
-import pickle
-from pathlib import Path
+"""Train the TinyStories transformer with the assignment's starting settings."""
 
-from src.bpe import train_bpe
+import sys
+
+from scripts import loading_together
 
 
-DATA_DIR = Path(__file__).resolve().parents[1] / "data"
-VOCAB_SIZE = 10_000
+TOKEN_BUDGET = 327_680_000
+BATCH_SIZE = 8
+CONTEXT_LENGTH = 256
+TRAINING_STEPS = TOKEN_BUDGET // (BATCH_SIZE * CONTEXT_LENGTH)
 
 
 def main():
-    vocab, merges = train_bpe(
-        DATA_DIR / "TinyStoriesV2-GPT4-train.txt",
-        vocab_size=VOCAB_SIZE,
-        special_tokens=["<|endoftext|>"],
-    )
-    for name, value in (("vocab.pkl", vocab), ("merges.pkl", merges)):
-        path = DATA_DIR / name
-        with path.open("wb") as output:
-            pickle.dump(value, output, protocol=pickle.HIGHEST_PROTOCOL)
-        print(f"Saved {path}")
-    print(f"Vocabulary size: {len(vocab):,}")
+    loading_together.main([
+        "--batch-size", str(BATCH_SIZE),
+        "--context-length", str(CONTEXT_LENGTH),
+        "--num-iterations", str(TRAINING_STEPS),
+        "--vocab-size", "10000",
+        "--d-model", "512",
+        "--d-ff", "1344",
+        "--theta", "10000",
+        "--num-layers", "4",
+        "--num-heads", "16",
+        "--device", "mps",
+        "--log-src", "logs/tinystories.jsonl",
+        *sys.argv[1:],
+    ])
 
 
 if __name__ == "__main__":

@@ -116,6 +116,8 @@ def main(argv: list[str] | None = None):
     if args.log_src is not None:
         args.log_src.parent.mkdir(parents=True, exist_ok=True)
 
+    args.checkpoint_dir.mkdir(parents=True, exist_ok=True)
+    final_iteration = iteration + args.num_iterations
     start_time = perf_counter()
     for _ in range(args.num_iterations):
         inputs, targets = load_data(
@@ -157,10 +159,12 @@ def main(argv: list[str] | None = None):
             with args.log_src.open("a", encoding="utf-8") as log:
                 print(json.dumps({"step": iteration, "loss": loss.item()}), file=log, flush=True)
 
-    args.checkpoint_dir.mkdir(parents=True, exist_ok=True)
-    checkpoint_path = args.checkpoint_dir / f"step_{iteration}.pt"
-    save_checkpoint(model, optimizer, iteration, checkpoint_path)
-    print(f"Saved {checkpoint_path}")
+        if iteration % 5_000 == 0 or iteration == final_iteration:
+            checkpoint_path = args.checkpoint_dir / f"step_{iteration}.pt"
+            temporary_path = checkpoint_path.with_suffix(".pt.tmp")
+            save_checkpoint(model, optimizer, iteration, temporary_path)
+            temporary_path.replace(checkpoint_path)
+            print(f"Saved {checkpoint_path}", flush=True)
 
 
 if __name__ == "__main__":
